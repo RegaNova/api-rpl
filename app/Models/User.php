@@ -48,4 +48,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function getRoleAttribute()
+    {
+        $adminEmails = ['admin@example.com'];
+        return in_array($this->email, $adminEmails) ? 'admin' : 'user';
+    }
 }

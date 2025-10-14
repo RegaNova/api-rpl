@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Laravel\Sanctum\HasApiTokens;
 use App\Traits\HasFormattedTimestamps;
 use Spatie\Permission\Traits\HasRoles;
@@ -12,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, HasFormattedTimestamps;
+    use HasApiTokens, HasFactory, HasUuids, Notifiable, HasRoles, HasFormattedTimestamps;
 
     /**
      * The attributes that are mass assignable.

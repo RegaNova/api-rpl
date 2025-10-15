@@ -3,6 +3,7 @@
 // routes/api.php
 use App\Http\Controllers\AuthController;
 use App\Enums\UserRoleEnum;
+use App\Http\Controllers\GenerationController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['enable.cors', 'throttle:api'])->group(function () {
@@ -18,9 +19,10 @@ Route::middleware(['enable.cors', 'throttle:api'])->group(function () {
         Route::post('/logout', [AuthController::class, 'logout']);
 
         Route::middleware(['role:' . UserRoleEnum::ADMIN->value])->group(function () {
-            Route::get('/admin-only', function () {
-                return response()->json(['message' => 'Admin only']);
-            });
+                Route::apiResource('generation', GenerationController::class)
+                ->except('index','show');
         });
     });
+    Route::get('generation',[GenerationController::class,'index']);
+    Route::get('generation/{id}',[GenerationController::class,'show']);
 });

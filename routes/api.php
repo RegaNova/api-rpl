@@ -10,6 +10,10 @@ Route::middleware(['enable.cors', 'throttle:api'])->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
 
+    Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
+    Route::post('/reset-password', [AuthController::class, 'resetPassword']);
+
+
     // Google Login
     Route::get('/auth/google', [AuthController::class, 'redirectToGoogle']);
     Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
@@ -19,10 +23,10 @@ Route::middleware(['enable.cors', 'throttle:api'])->group(function () {
         Route::post('/logout', [AuthController::class, 'logout']);
 
         Route::middleware(['role:' . UserRoleEnum::ADMIN->value])->group(function () {
-                Route::apiResource('generation', GenerationController::class)
-                ->except('index','show');
+            Route::apiResource('generation', GenerationController::class)
+                ->except('index', 'show');
         });
     });
-    Route::get('generation',[GenerationController::class,'index']);
-    Route::get('generation/{id}',[GenerationController::class,'show']);
+    Route::get('generation', [GenerationController::class, 'index']);
+    Route::get('generation/{id}', [GenerationController::class, 'show']);
 });

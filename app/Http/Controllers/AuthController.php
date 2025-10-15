@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 // app/Http/Controllers/AuthController.php
 use App\Models\User;
 use App\Enums\UserRoleEnum;
-use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
@@ -103,5 +106,72 @@ class AuthController extends Controller
         } catch (\Exception $e) {
             return response()->json(['error' => 'Google login failed'], 400);
         }
+    }
+
+    // ==============================
+    // 1️⃣ Forgot Password (buat token dan kirim ke FE)
+    // ==============================
+    public function forgotPassword(Request $request)
+    {
+        $request->validate(['email' => 'required|email']);
+
+        $user = User::where('email', $request->email)->first();
+
+        if (! $user) {
+            return response()->json(['message' => 'Email not found'], 404);
+        }
+
+        // Buat token baru
+        $token = Str::random(64);
+
+        // Simpan token ke tabel password_reset_tokens
+        DB::table('password_reset_tokens')->updateOrInsert(
+            ['email' => $user->email],
+            [
+                'token' => Hash::make($token),
+                'created_at' => Carbon::now(),
+            ]
+        );
+
+        // Kirim token ke FE
+        return response()->json([
+            'message' => 'Reset token generated successfully.',
+            'token' => $token, // FE bisa kirim email sendiri atau tampilkan form reset password
+            'email' => $user->email,
+        ]);
+    }
+
+    // ==============================
+    // 2️⃣ Reset Password (verifikasi token & ubah password)
+    // ==============================
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'email' => ['required', 'email'],
+            'token' => ['required', 'string'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        $record = DB::table('password_reset_tokens')
+            ->where('email', $request->email)
+            ->first();
+
+        if (! $record) {
+            return response()->json(['message' => 'Invalid email or token.'], 400);
+        }
+
+        // Validasi token
+        if (! Hash::check($request->token, $record->token)) {
+            return response()->json(['message' => 'Invalid token.'], 400);
+        }
+
+        // Update password user
+        $user = User::where('email', $request->email)->first();
+        $user->update(['password' => Hash::make($request->password)]);
+
+        // Hapus token setelah digunakan
+        DB::table('password_reset_tokens')->where('email', $request->email)->delete();
+
+        return response()->json(['message' => 'Password reset successfully.']);
     }
 }

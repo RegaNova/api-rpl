@@ -4,6 +4,7 @@
 use App\Http\Controllers\AuthController;
 use App\Enums\UserRoleEnum;
 use App\Http\Controllers\GenerationController;
+use App\Http\Controllers\PositionController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['enable.cors', 'throttle:api'])->group(function () {
@@ -23,10 +24,18 @@ Route::middleware(['enable.cors', 'throttle:api'])->group(function () {
         Route::post('/logout', [AuthController::class, 'logout']);
 
         Route::middleware(['role:' . UserRoleEnum::ADMIN->value])->group(function () {
+            // Generation
             Route::apiResource('generation', GenerationController::class)
                 ->except('index', 'show');
+            // Position
+            Route::apiResource('position', PositionController::class)
+            ->except('index','show');
         });
     });
+    // Generation
     Route::get('generation', [GenerationController::class, 'index']);
     Route::get('generation/{id}', [GenerationController::class, 'show']);
+    // Position
+    Route::get('position', [PositionController::class, 'index']);
+    Route::get('position/{id}', [PositionController::class, 'show']);
 });

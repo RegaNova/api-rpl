@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use App\Interfaces\DevisionInterface;
 use Illuminate\Http\Request;
 use App\Interfaces\PositionInterface;
 use Illuminate\Support\Facades\Route;
 use App\Interfaces\GenerationInterface;
+use App\Repositories\DevisionRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\PositionRepository;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -22,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
         $bindings = [
             GenerationInterface::class => GenerationRepository::class,
             PositionInterface::class => PositionRepository::class,
+            DevisionInterface::class => DevisionRepository::class
         ];
         foreach ($bindings as $abstract => $concrete) {
             $this->app->bind($abstract, $concrete);

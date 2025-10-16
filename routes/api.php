@@ -3,6 +3,7 @@
 // routes/api.php
 use App\Http\Controllers\AuthController;
 use App\Enums\UserRoleEnum;
+use App\Http\Controllers\DevisionController;
 use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\PositionController;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,9 @@ Route::middleware(['enable.cors', 'throttle:api'])->group(function () {
             // Position
             Route::apiResource('position', PositionController::class)
             ->except('index','show');
+            // Devision
+            Route::apiResource('devision', DevisionController::class)
+            ->except('index','show');
         });
     });
     // Generation
@@ -38,4 +42,7 @@ Route::middleware(['enable.cors', 'throttle:api'])->group(function () {
     // Position
     Route::get('position', [PositionController::class, 'index']);
     Route::get('position/{id}', [PositionController::class, 'show']);
+    // Devision
+    Route::get('devision', [DevisionController::class, 'index']);
+    Route::get('devision/{id}', [DevisionController::class, 'show']);
 });

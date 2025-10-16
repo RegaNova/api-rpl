@@ -1,21 +1,35 @@
-# 🎓 Jurusan Management API — Laravel RESTful Backend
+# 🏫 SMK Jurusan Management API — Laravel RESTful Backend
 
-Sistem backend berbasis **Laravel REST API** untuk manajemen data jurusan, mahasiswa, generasi, dan entitas akademik lainnya.  
-Proyek ini dibangun dengan pendekatan **Repository Pattern**, **Resource Transformation**, dan **modular architecture** agar mudah dikembangkan dan diintegrasikan dengan frontend berbasis Vue/Vite, React, atau aplikasi mobile.
+Sistem backend berbasis **Laravel REST API** untuk mengelola data **jurusan, siswa, guru, kelas, dan angkatan** di lingkungan sekolah SMK.  
+Dibangun dengan **Repository Pattern** dan **Resource API** agar modular, efisien, dan mudah diintegrasikan ke frontend berbasis **Vite/Vue** atau **mobile app**.
 
 ---
 
 ## 🚀 Fitur Utama
 
-- ✅ Autentikasi API menggunakan **Laravel Sanctum**
-- 🎓 Manajemen **Mahasiswa** & **Jurusan**
-- 🧩 Relasi antar tabel (contoh: `students` ↔ `generations`)
-- ⚙️ Filtering, Sorting, dan Pagination
-- 🧠 Arsitektur **Repository Pattern**
-- 🔐 Validasi menggunakan **Form Request**
-- 📦 API Response terstruktur via **Laravel API Resources**
+-   🔐 Autentikasi berbasis **Laravel Sanctum**
+-   🎓 Manajemen **Siswa, Guru, Jurusan, dan Angkatan**
+-   🔄 Relasi antar entitas (contoh: `siswa` ↔ `angkatan`, `jurusan` ↔ `guru`)
+-   🔍 Filtering, Sorting, dan Pagination otomatis
+-   🧱 Arsitektur **Repository Pattern**
+-   📦 Format response konsisten pakai **API Resource**
+-   🧠 Validasi menggunakan **Form Request**
 
 ---
 
-## 🧱 Struktur Direktori (utama)
+## 📁 Struktur Direktori Utama
 
+app/
+├── Helpers/
+│ └── QueryFilterHelper.php
+├── Http/
+│ ├── Controllers/
+│ │ ├── Api/
+│ ├── Requests/
+│ ├── Resources/
+├── Interfaces/
+├── Models/
+├── Repositories/
+routes/
+├── api.php
+└── web.php

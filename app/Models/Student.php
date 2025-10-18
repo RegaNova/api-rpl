@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Generation extends Model
+class Student extends Model
 {
     use HasFactory, HasUuids, HasFormattedTimestamps;
 
@@ -16,11 +16,14 @@ class Generation extends Model
 
     protected $fillable = [
         'name',
-        'year',
-        'image'
+        'date_birth',
+        'instagram',
+        'words',
+        'image',
+        'generation_id'
     ];
 
-    public function student(){
-        return $this->hasMany(Student::class);
+    public function generation(){
+        return $this->belongsTo(Generation::class);
     }
 }

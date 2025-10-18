@@ -1,7 +1,7 @@
 # 🏫 SMK Jurusan Management API — Laravel RESTful Backend
 
 Sistem backend berbasis **Laravel REST API** untuk mengelola data **jurusan, siswa, guru, kelas, dan angkatan** di lingkungan sekolah SMK.  
-Dibangun dengan **Repository Pattern** dan **Resource API** agar modular, efisien, dan mudah diintegrasikan ke frontend berbasis **Vite/Vue** atau **mobile app**.
+Dibangun dengan **Repository Pattern** dan **Resource API** agar modular, efisien, dan mudah diintegrasikan ke frontend berbasis **Vite/Vue**.
 
 ---
 
@@ -15,21 +15,3 @@ Dibangun dengan **Repository Pattern** dan **Resource API** agar modular, efisie
 -   📦 Format response konsisten pakai **API Resource**
 -   🧠 Validasi menggunakan **Form Request**
 
----
-
-## 📁 Struktur Direktori Utama
-
-app/
-├── Helpers/
-│ └── QueryFilterHelper.php
-├── Http/
-│ ├── Controllers/
-│ │ ├── Api/
-│ ├── Requests/
-│ ├── Resources/
-├── Interfaces/
-├── Models/
-├── Repositories/
-routes/
-├── api.php
-└── web.php

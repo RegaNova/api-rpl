@@ -68,7 +68,14 @@ class AuthController extends Controller
 
     public function user(Request $request)
     {
-        return $request->user();
+        $user = $request->user();
+
+        return response()->json([
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'role' => $user->role, // Kirim role ke FE
+        ]);
     }
 
     public function logout(Request $request)

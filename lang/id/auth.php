@@ -18,5 +18,7 @@ return [
     'failed' => 'Kredensial tidak valid',
     'invalid_bearer_token' => 'Sesi Login tidak valid atau telah berakhir',
     'invalid_authorization' => 'Role user tidak valid',
-    'login_success' => 'Berhasil login'
+    'login_success' => 'Berhasil login',
+    'registration_success' => 'Pendaftaran berhasil',
+    'registration_failed' => 'Pendaftaran gagal',
 ];

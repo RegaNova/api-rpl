@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Http\Request;
+use App\Interfaces\AuthInterface;
 use App\Interfaces\BaseInterface;
+use App\Repositories\AuthRepository;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -18,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $bindings = [
             BaseInterface::class => BaseRepository::class,
+            AuthInterface::class => AuthRepository::class,
         ];
 
         foreach ($bindings as $abstract => $concrete) {

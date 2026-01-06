@@ -123,4 +123,5 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'maximal_request' => env('MAXIMAL_REQUEST', 60),
 ];

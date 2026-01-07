@@ -9,7 +9,9 @@ use App\Repositories\AuthRepository;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Cache\RateLimiting\Limit;
+use App\Repositories\GenerationInterface;
 use Illuminate\Support\Facades\RateLimiter;
+use App\Repositories\GenerationRepositories;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
         $bindings = [
             BaseInterface::class => BaseRepository::class,
             AuthInterface::class => AuthRepository::class,
+            GenerationInterface::class => GenerationRepositories::class,
         ];
 
         foreach ($bindings as $abstract => $concrete) {

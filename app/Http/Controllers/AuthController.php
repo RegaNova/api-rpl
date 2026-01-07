@@ -36,6 +36,7 @@ class AuthController extends Controller
 
             return ResponseHelper::success([
                 'user'         => $user,
+                'role'         => $user->getRoleNames()->first(),
                 'access_token' => $tokenData['token'],
                 'token_type'   => 'Bearer',
                 'expires_at'   => $tokenData['expires_at']->toDateTimeString(),

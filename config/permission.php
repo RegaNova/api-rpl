@@ -2,6 +2,10 @@
 
 return [
 
+    'defaults' => [
+        'guard' => 'sanctum',
+    ],
+
     'models' => [
 
         /*
